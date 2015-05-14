@@ -1,11 +1,12 @@
 class Employee
-  attr_reader :name, :email, :phone, :salary, :reviews
+  attr_reader :name, :email, :phone, :salary, :reviews, :performance_rating
   def initialize (name:, email: "", phone: "", salary:)
     @name = name
     @email = email
     @phone = phone
     @salary = salary
     @reviews = []
+    @performance_rating = performance_rating
   end
 
   def give_raise(ratio)
@@ -18,9 +19,9 @@ class Employee
 
   def work_performance(r)
     if r == true
-      "Satisfactorily"
+      @performance_rating = "Satisfactorily"
     else
-      "Unsatisfactorily"
+      @performance_rating = "Unsatisfactorily"
     end
   end
 end
