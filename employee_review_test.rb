@@ -50,12 +50,18 @@ class EmployeeReview < Minitest::Test
     assert abbie.add_review("Great attitude! Needs to work on meeting deadlines.")
   end
 
-  def test_11_employee_work_performance
+  def test_11_employee_add_review
     danny = Employee.new(name: "Danny", salary: 35000)
-    danny.add_review("Great Job!")
-    danny.add_review("Needs improvement in time management")
-    danny.add_review("Exceeds performance expectations")
+    assert danny.add_review("Great Job!")
+    assert danny.add_review("Needs improvement in time management")
+    assert danny.add_review("Exceeds performance expectations")
+  end
+
+  def test_12_employee_work_performance
+    danny = Employee.new(name: "Danny", salary: 35000)
     assert_equal "Satisfactorily", danny.work_performance(true)
+    alex = Employee.new(name: "Alex", salary: 12000)
+    assert_equal "Unsatisfactorily", alex.work_performance(false)
   end
 
   def test_12_add_raise_to_employee
@@ -65,9 +71,15 @@ class EmployeeReview < Minitest::Test
 
   def test_13_add_department_raise
     finance = Department.new("Finance")
-    finance.add_e(Employee.new(name: "Steve", email: "hello@gmail.com", phone: 404803666, salary: 1000))
-    finance.add_e(Employee.new(name: "George", salary: 25000))
-    finance.raises(0.25)
+    steve = Employee.new(name: "Steve", email: "hello@gmail.com", phone: 404803666, salary: 1000)
+    finance.add_e(steve)
+    steve.work_performance(true)
+    george = Employee.new(name: "George", salary: 25000)
+    finance.add_e(george)
+    george.work_performance(false)
+    finance.give_raises(0.25)
+  #   p george.salary
+  #   p steve.salary
   end
 
 end
