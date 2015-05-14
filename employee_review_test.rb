@@ -50,12 +50,12 @@ class EmployeeReview < Minitest::Test
     assert abbie.add_review("Great attitude! Needs to work on meeting deadlines.")
   end
 
-  def test_11_employee_review_status
+  def test_11_employee_work_performance
     danny = Employee.new("Danny", "", "", 35000)
     danny.add_review("Great Job!")
     danny.add_review("Needs improvement in time management")
     danny.add_review("Exceeds performance expectations")
-    assert danny.work_performance
+    assert_equal "Satisfactorily", danny.work_performance(true)
 
   end
 

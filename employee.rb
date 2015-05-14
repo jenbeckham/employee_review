@@ -16,7 +16,11 @@ class Employee
     @reviews << review
   end
 
-  def work_performance
-    
+  def work_performance(r)
+    if r == true
+      "Satisfactorily"
+    else
+      "Unsatisfactorily"
+    end
   end
 end
