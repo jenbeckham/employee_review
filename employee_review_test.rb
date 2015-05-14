@@ -10,23 +10,23 @@ class EmployeeReview < Minitest::Test
   end
 
   def test_02_create_employee
-    assert Employee.new("Jennifer", "hello@gmail.com", 404803666, 1000)
+    assert Employee.new(name: "Jennifer", email: "hello@gmail.com", phone: 404803666, salary: 1000)
   end
 
   def test_03_call_on_employee_name
-    assert_equal "Bob", Employee.new("Bob", "", "", 10000).name
+    assert_equal "Bob", Employee.new(name: "Bob", salary: 10000).name
   end
 
   def test_04_call_on_employee_emails
-    assert_equal "hello@gmail.com", Employee.new("Steve", "hello@gmail.com", 404803666, 1000).email
+    assert_equal "hello@gmail.com", Employee.new(name: "Steve", email:"hello@gmail.com", salary: 1000).email
   end
 
   def test_05_call_on_employee_phone
-    assert_equal 4048036666, Employee.new("Steve", "hello@gmail.com", 4048036666, 1000).phone
+    assert_equal 4048036666, Employee.new(name: "Steve", email: "hello@gmail.com", phone: 4048036666, salary: 1000).phone
   end
 
   def test_06_call_on_employee_salary
-    assert_equal 1000, Employee.new("Steve", "hello@gmail.com", 404803666, 1000).salary
+    assert_equal 1000, Employee.new(name: "Steve", email: "hello@gmail.com", phone: 404803666, salary: 1000).salary
   end
 
   def test_07_department_call_on_name
@@ -35,39 +35,38 @@ class EmployeeReview < Minitest::Test
 
   def test_08_add_employee_to_department
     humanresources = Department.new("Human Resources")
-    assert humanresources.add_e(Employee.new("George", "", "", 25000))
+    assert humanresources.add_e(Employee.new(name: "George",salary: 25000))
   end
 
   def test_09_all_employees_salaries_in_department
     finance = Department.new("Finance")
-    finance.add_e(Employee.new("Steve", "hello@gmail.com", 404803666, 1000))
-    finance.add_e(Employee.new("George", "", "", 25000))
+    finance.add_e(Employee.new(name: "Steve", email: "hello@gmail.com", phone: 404803666, salary: 1000))
+    finance.add_e(Employee.new(name: "George", salary: 25000))
     assert_equal 26000, finance.total_salaries
   end
 
   def test_10_add_employee_review
-    abbie = Employee.new("Abbie", "", "", 35000)
+    abbie = Employee.new(name: "Abbie", salary: 35000)
     assert abbie.add_review("Great attitude! Needs to work on meeting deadlines.")
   end
 
   def test_11_employee_work_performance
-    danny = Employee.new("Danny", "", "", 35000)
+    danny = Employee.new(name: "Danny", salary: 35000)
     danny.add_review("Great Job!")
     danny.add_review("Needs improvement in time management")
     danny.add_review("Exceeds performance expectations")
     assert_equal "Satisfactorily", danny.work_performance(true)
-
   end
 
   def test_12_add_raise_to_employee
-    steve = Employee.new("Steve", "hello@gmail.com", 404803666, 1000)
+    steve = Employee.new(name: "Steve", email: "hello@gmail.com", phone: 404803666, salary: 1000)
     assert steve.give_raise(0.3)
   end
 
   def test_13_add_department_raise
     finance = Department.new("Finance")
-    finance.add_e(Employee.new("Steve", "hello@gmail.com", 404803666, 1000))
-    finance.add_e(Employee.new("George", "", "", 25000))
+    finance.add_e(Employee.new(name: "Steve", email: "hello@gmail.com", phone: 404803666, salary: 1000))
+    finance.add_e(Employee.new(name: "George", salary: 25000))
     finance.raises(0.25)
   end
 
