@@ -57,29 +57,53 @@ class EmployeeReview < Minitest::Test
     assert danny.add_review("Exceeds performance expectations")
   end
 
-  def test_12_employee_work_performance
-    danny = Employee.new(name: "Danny", salary: 35000)
-    assert_equal "Satisfactorily", danny.work_performance(true)
-    alex = Employee.new(name: "Alex", salary: 12000)
-    assert_equal "Unsatisfactorily", alex.work_performance(false)
-  end
+  # def test_12_employee_work_performance
+  #   danny = Employee.new(name: "Danny", salary: 35000)
+  #   assert_equal "Satisfactorily", danny.work_performance(true)
+  #   alex = Employee.new(name: "Alex", salary: 12000)
+  #   assert_equal "Unsatisfactorily", alex.work_performance(false)
+  # end
 
-  def test_12_add_raise_to_employee
+  def test_13_add_raise_to_employee
     steve = Employee.new(name: "Steve", email: "hello@gmail.com", phone: 404803666, salary: 1000)
-    assert steve.give_raise(0.3)
+    assert steve.give_raise(1000)
   end
 
-  def test_13_add_department_raise
+  # def test_14_add_department_raises_by_ratio
+  #   finance = Department.new("Finance")
+  #   jim = Employee.new(name: "Jim", email: "hello@gmail.com", phone: 404803666, salary: 1000)
+  #   finance.add_e(jim)
+  #   assert jim.work_performance(true)
+  #   george = Employee.new(name: "George", salary: 25000)
+  #   finance.add_e(george)
+  #   assert george.work_performance(false)
+  #   assert finance.give_raises(1000)
+  # end
+
+  def test_15_add_raises_to_department
     finance = Department.new("Finance")
     jim = Employee.new(name: "Jim", email: "hello@gmail.com", phone: 404803666, salary: 1000)
     finance.add_e(jim)
-    jim.work_performance(true)
     george = Employee.new(name: "George", salary: 25000)
     finance.add_e(george)
-    george.work_performance(false)
-    finance.give_raises(0.25)
-  #   p george.salary
-  #   p steve.salary
+    finance.give_raises(5000) {|employee| employee.salary < 100000}
+  end
+
+  def test_16_evaluate_employee_review
+    zeke = Employee.new(name: "Zeke", salary: 15000)
+    zeke.add_review("Zeke is a very positive person and encourages those around him,
+    but he has not done well technically this year.  There are two areas in which Zeke
+    has room for improvement.  First, when communicating verbally (and sometimes in
+    writing), he has a tendency to use more words than are required.  This conversational
+    style does put people at ease, which is valuable, but it often makes the meaning difficult
+    to isolate, and can cause confusion.Second, when discussing new requirements with project
+    managers, less of the information is retained by Zeke long-term than is expected.  This
+    has a few negative consequences: 1) time is spent developing features that are not useful
+    and need to be re-run, 2) bugs are introduced in the code and not caught because the tests
+    lack the same information, and 3) clients are told that certain features are complete when
+    they are inadequate.  This communication limitation could be the fault of project management,
+    but given that other developers appear to retain more information, this is worth discussing further.")
+    assert zeke.evaluate_employee_review
   end
 
 end

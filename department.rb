@@ -15,20 +15,9 @@ class Department
     total_salaries
   end
 
-  def give_raises(ratio)
-    good_employees = @all_employees.reject {|e| e.performance_rating == "Unsatisfactorily"}
-    good_employees.map {|s| s.give_raise(ratio)} 
-    # good_employees.all
-    #   if e.work_performance(true)
-    #     good_employees << e
-    #   end
-    # end
-
-    #
-    # @all_employees.reject {|e| e.work_performance(false)}
-    # good_employees
-    # good_employees.map {|ge| ge.give_raise(ratio)}
-
+  def give_raises(amount)
+    eligible_employees = @all_employees.select {|e| yield (e)}
+    eligible_employees.map {|employee| employee.give_raise(amount/eligible_employees.length)}
   end
 
 
