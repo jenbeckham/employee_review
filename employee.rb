@@ -12,18 +12,18 @@ class Employee
   end
 
   def give_raise(dollar_amount)
-    @salary + (dollar_amount+@salary)
+    @salary += dollar_amount
   end
 
   def add_review(review)
     @reviews << review.downcase
   end
 
-  def evaluate_employee_review
+  def evaluate_review
     bad_array = []
     good_array = []
     @reviews.each do |r|
-    bad_array << r.scan(/(improve|difficult|negative|less|not|lack|inadequate|interrupt|poor|unsatisf|\s\more\s\w)/).flatten
+    bad_array << r.scan(/(improve|[\S]success|difficult|[\S]happy|negative|[\S]consistent|[\S]effectiv|less|not|lack|[\S]productiv|inadequate|interrupt|poor|[\S]proficient|unsatisf|\s\more\s\w)/).flatten
     end
     @bad_comments = bad_array.flatten.count
 
@@ -39,7 +39,7 @@ class Employee
     end
   end
 
-  def rating_employee_performance
+  def rating_performance
     if @good_comments.to_f/(@good_comments+@bad_comments) < 0.25
       1
     elsif @good_comments.to_f/(@good_comments+@bad_comments) < 0.5

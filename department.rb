@@ -17,7 +17,7 @@ class Department
 
   def give_raises(amount)
     eligible_employees = @all_employees.select {|e| yield (e)}
-    eligible_employees.map {|employee| employee.give_raise(amount/eligible_employees.length)}
+    eligible_employees.map {|employee| employee.give_raise(amount.to_f/eligible_employees.count)}
   end
 
 

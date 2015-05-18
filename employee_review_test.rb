@@ -87,6 +87,8 @@ class EmployeeReview < Minitest::Test
     assert george = Employee.new(name: "George", salary: 25000)
     assert finance.add_e(george)
     assert finance.give_raises(5000) {|employee| employee.salary < 100000}
+    p george.salary
+    p jim.salary
   end
 
   def test_16_evaluate_employee_review_and_rating
@@ -103,8 +105,8 @@ class EmployeeReview < Minitest::Test
     lack the same information, and 3) clients are told that certain features are complete when
     they are inadequate.  This communication limitation could be the fault of project management,
     but given that other developers appear to retain more information, this is worth discussing further.")
-    assert_equal "Unsatisfactorily",  zeke.evaluate_employee_review
-    assert zeke.rating_employee_performance
+    assert_equal "Unsatisfactorily",  zeke.evaluate_review
+    assert zeke.rating_performance
     yvonne = Employee.new(name: "Yvonne", salary: 20000)
     yvonne.add_review("Thus far, there have been two concerns over Yvonne's performance, and
     both have been discussed with her in internal meetings.  First, in some cases, Yvonne takes
@@ -115,8 +117,8 @@ class EmployeeReview < Minitest::Test
     Yvonne has a tendency to interrupt, talk over others, and increase her volume when in disagreement.
     In client meetings, she also can dwell on potential issues even if the client or other attendees have
     clearly ruled the issue out, and can sometimes get off topic.")
-    assert_equal "Unsatisfactorily", yvonne.evaluate_employee_review
-    assert yvonne.rating_employee_performance
+    assert_equal "Unsatisfactorily", yvonne.evaluate_review
+    assert yvonne.rating_performance
     xavier = Employee.new(name: "Xavier", salary: 25000)
     xavier.add_review("Xavier is a huge asset to SciMed and is a pleasure to work with. He quickly knocks
     out tasks assigned to him, implements code that rarely needs to be revisited, and is always willing to
@@ -124,8 +126,8 @@ class EmployeeReview < Minitest::Test
     to go. Last year, the only concerns with Xavier performance were around ownership.  In the past twelve months,
     he has successfully taken full ownership of both Acme and Bricks, Inc.  Aside from some false starts with estimates
     on Acme, clients are happy with his work and responsiveness, which is everything that his managers could ask for.")
-    assert_equal "Satisfactorily",  xavier.evaluate_employee_review
-    assert xavier.rating_employee_performance
+    assert_equal "Satisfactorily",  xavier.evaluate_review
+    assert xavier.rating_performance
     wanda = Employee.new(name: "Wanda", salary: 13000)
     wanda.add_review("Wanda has been an incredibly consistent and effective developer.  Clients are always satisfied with
      her work, developers are impressed with her productivity, and she's more than willing to help others even when she has
@@ -134,8 +136,8 @@ class EmployeeReview < Minitest::Test
      the job.  We know that work on a single project can become monotonous, however, so over the next few months, we hope
      to spread some of the Cement Company work to others.  This will also allow Wanda to pair more with others and spread
      her effectiveness to other projects")
-     assert_equal "Satisfactorily", wanda.evaluate_employee_review
-     wanda.rating_employee_performance
+     assert_equal "Satisfactorily", wanda.evaluate_review
+     wanda.rating_performance
   end
 
   def test_17_give_raises_based_on_rating
@@ -146,19 +148,17 @@ class EmployeeReview < Minitest::Test
     He exhibits good listening skills and comprehends complex matters well. His written communications
     skills meet the requirements of his position, and he keeps others adequately informed. However,
     Mike occasionally selects inappropriate methods of communication.")
-    assert mike.evaluate_employee_review
-    assert mike.rating_employee_performance
+    assert mike.evaluate_review
+    assert mike.rating_performance
     assert sam = Employee.new(name: "Sam", salary: 25000)
     assert finance.add_e(sam)
     assert sam.add_review("Sam demonstrates outstanding written communications skills. She listens carefully,
     asks perceptive questions, and quickly comprehends new or highly complex matters. She implements
     highly effective and often innovative communication methods. Sam displays very good verbal skills,
     communicating clearly and concisely. She is careful to keep others informed in a timely manner.")
-    assert sam.evaluate_employee_review
-    assert sam.rating_employee_performance
-    assert finance.give_raises(100) {|employee| employee.rating_employee_performance. >= 3}
-    p sam.salary
-    p mike.salary
+    assert sam.evaluate_review
+    assert sam.rating_performance
+    assert finance.give_raises(100) {|employee| employee.rating_performance. >= 3}
 
   end
 
