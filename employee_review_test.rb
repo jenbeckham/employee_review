@@ -81,15 +81,15 @@ class EmployeeReview < Minitest::Test
   # end
 
   def test_15_add_raises_to_department
-    finance = Department.new("Finance")
-    jim = Employee.new(name: "Jim", email: "hello@gmail.com", phone: 404803666, salary: 1000)
-    finance.add_e(jim)
-    george = Employee.new(name: "George", salary: 25000)
-    finance.add_e(george)
-    finance.give_raises(5000) {|employee| employee.salary < 100000}
+    assert finance = Department.new("Finance")
+    assert jim = Employee.new(name: "Jim", email: "hello@gmail.com", phone: 404803666, salary: 1000)
+    assert finance.add_e(jim)
+    assert george = Employee.new(name: "George", salary: 25000)
+    assert finance.add_e(george)
+    assert finance.give_raises(5000) {|employee| employee.salary < 100000}
   end
 
-  def test_16_evaluate_employee_review
+  def test_16_evaluate_employee_review_and_rating
     zeke = Employee.new(name: "Zeke", salary: 15000)
     zeke.add_review("Zeke is a very positive person and encourages those around him,
     but he has not done well technically this year.  There are two areas in which Zeke
@@ -103,30 +103,62 @@ class EmployeeReview < Minitest::Test
     lack the same information, and 3) clients are told that certain features are complete when
     they are inadequate.  This communication limitation could be the fault of project management,
     but given that other developers appear to retain more information, this is worth discussing further.")
-    p zeke.reviews
-    zeke.evaluate_employee_review
-    # # p zeke.rating_employee_performance
-    # yvonne = Employee.new(name: "Yvonne", salary: 20000)
-    # yvonne.add_review("Thus far, there have been two concerns over Yvonne's performance, and
-    # both have been discussed with her in internal meetings.  First, in some cases, Yvonne takes
-    # longer to complete tasks than would normally be expected.  This most commonly manifests during
-    # development on existing applications, but can sometimes occur during development on new projects,
-    # often during tasks shared with Andrew.  In order to accommodate for these preferences, Yvonne has
-    # been putting more time into fewer projects, which has gone well. Second, while in conversation,
-    # Yvonne has a tendency to interrupt, talk over others, and increase her volume when in disagreement.
-    # In client meetings, she also can dwell on potential issues even if the client or other attendees have
-    # clearly ruled the issue out, and can sometimes get off topic.")
-    # p yvonne.evaluate_employee_review
-    # # p yvonne.rating_employee_performance
-    # xavier = Employee.new(name: "Xavier", salary: 25000)
-    # xavier.add_review("Xavier is a huge asset to SciMed and is a pleasure to work with. He quickly knocks
-    # out tasks assigned to him, implements code that rarely needs to be revisited, and is always willing to
-    # help others despite his heavy workload.  When Xavier leaves on vacation, everyone wishes he didn't have
-    # to go. Last year, the only concerns with Xavier performance were around ownership.  In the past twelve months,
-    # he has successfully taken full ownership of both Acme and Bricks, Inc.  Aside from some false starts with estimates
-    # on Acme, clients are happy with his work and responsiveness, which is everything that his managers could ask for.")
-    # p xavier.evaluate_employee_review
-    # # p xavier.rating_employee_performance
+    assert_equal "Unsatisfactorily",  zeke.evaluate_employee_review
+    assert zeke.rating_employee_performance
+    yvonne = Employee.new(name: "Yvonne", salary: 20000)
+    yvonne.add_review("Thus far, there have been two concerns over Yvonne's performance, and
+    both have been discussed with her in internal meetings.  First, in some cases, Yvonne takes
+    longer to complete tasks than would normally be expected.  This most commonly manifests during
+    development on existing applications, but can sometimes occur during development on new projects,
+    often during tasks shared with Andrew.  In order to accommodate for these preferences, Yvonne has
+    been putting more time into fewer projects, which has gone well. Second, while in conversation,
+    Yvonne has a tendency to interrupt, talk over others, and increase her volume when in disagreement.
+    In client meetings, she also can dwell on potential issues even if the client or other attendees have
+    clearly ruled the issue out, and can sometimes get off topic.")
+    assert_equal "Unsatisfactorily", yvonne.evaluate_employee_review
+    assert yvonne.rating_employee_performance
+    xavier = Employee.new(name: "Xavier", salary: 25000)
+    xavier.add_review("Xavier is a huge asset to SciMed and is a pleasure to work with. He quickly knocks
+    out tasks assigned to him, implements code that rarely needs to be revisited, and is always willing to
+    help others despite his heavy workload.  When Xavier leaves on vacation, everyone wishes he didn't have
+    to go. Last year, the only concerns with Xavier performance were around ownership.  In the past twelve months,
+    he has successfully taken full ownership of both Acme and Bricks, Inc.  Aside from some false starts with estimates
+    on Acme, clients are happy with his work and responsiveness, which is everything that his managers could ask for.")
+    assert_equal "Satisfactorily",  xavier.evaluate_employee_review
+    assert xavier.rating_employee_performance
+    wanda = Employee.new(name: "Wanda", salary: 13000)
+    wanda.add_review("Wanda has been an incredibly consistent and effective developer.  Clients are always satisfied with
+     her work, developers are impressed with her productivity, and she's more than willing to help others even when she has
+     a substantial workload of her own.  She is a great asset to Awesome Company, and everyone enjoys working with her.
+     During the past year, she has largely been devoted to work with the Cement Company, and she is the perfect woman for
+     the job.  We know that work on a single project can become monotonous, however, so over the next few months, we hope
+     to spread some of the Cement Company work to others.  This will also allow Wanda to pair more with others and spread
+     her effectiveness to other projects")
+     assert_equal "Satisfactorily", wanda.evaluate_employee_review
+     wanda.rating_employee_performance
+  end
+
+  def test_17_give_raises_based_on_rating
+    assert finance = Department.new("Finance")
+    assert mike = Employee.new(name: "Mike", email: "hello@gmail.com", phone: 404803666, salary: 1000)
+    assert finance.add_e(mike)
+    assert mike.add_review("Mike displays very good verbal skills, communicating clearly and concisely.
+    He exhibits good listening skills and comprehends complex matters well. His written communications
+    skills meet the requirements of his position, and he keeps others adequately informed. However,
+    Mike occasionally selects inappropriate methods of communication.")
+    assert mike.evaluate_employee_review
+    assert mike.rating_employee_performance
+    assert sam = Employee.new(name: "Sam", salary: 25000)
+    assert finance.add_e(sam)
+    assert sam.add_review("Sam demonstrates outstanding written communications skills. She listens carefully,
+    asks perceptive questions, and quickly comprehends new or highly complex matters. She implements
+    highly effective and often innovative communication methods. Sam displays very good verbal skills,
+    communicating clearly and concisely. She is careful to keep others informed in a timely manner.")
+    assert sam.evaluate_employee_review
+    assert sam.rating_employee_performance
+    assert finance.give_raises(100) {|employee| employee.rating_employee_performance. >= 3}
+    p sam.salary
+    p mike.salary
 
   end
 
