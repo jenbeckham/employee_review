@@ -31,6 +31,7 @@ class EmployeeReview < Minitest::Test
 
   def test_02_create_employee
     Employee.create(name: "Jennifer", email: "hello@gmail.com", number: 404803666, salary: 1000)
+    
   end
 
   def test_03_call_on_employee_name
