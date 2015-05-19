@@ -30,7 +30,7 @@ class EmployeeReview < Minitest::Test
   # end
 
   def test_02_create_employee
-    Employee.create(name: "Jennifer", email: "hello@gmail.com", number: 404803666, salary: 1000)
+    Employee.create(name: "Jennifer", email: "hello@gmail.com", phone: 404803666, salary: 1000)
   end
 
   def test_03_call_on_employee_name
@@ -40,19 +40,19 @@ class EmployeeReview < Minitest::Test
   def test_04_call_on_employee_emails
     assert_equal "hello@gmail.com", Employee.create(name: "Steve", email:"hello@gmail.com", salary: 1000).email
   end
-  #
-  # def test_05_call_on_employee_phone
-  #   assert_equal 4048036666, Employee.new(name: "Steve", email: "hello@gmail.com", phone: 4048036666, salary: 1000).phone
-  # end
-  #
-  # def test_06_call_on_employee_salary
-  #   assert_equal 1000, Employee.new(name: "Steve", email: "hello@gmail.com", phone: 404803666, salary: 1000).salary
-  # end
-  #
-  # def test_07_department_call_on_name
-  #   assert_equal "Human Resources", Department.new("Human Resources").name
-  # end
-  #
+
+  def test_05_call_on_employee_phone
+    assert_equal "4048036666", Employee.create(name: "Steve", email: "hello@gmail.com", phone: 4048036666, salary: 1000).phone
+  end
+
+  def test_06_call_on_employee_salary
+    assert_equal 1000, Employee.create(name: "Steve", email: "hello@gmail.com", phone: 404803666, salary: 1000).salary
+  end
+
+  def test_07_department_call_on_name
+    assert_equal "Human Resources", Department.create(name: "Human Resources").name
+  end
+
   # def test_08_add_employee_to_department
   #   humanresources = Department.new("Human Resources")
   #   assert humanresources.add_e(Employee.new(name: "George",salary: 25000))
