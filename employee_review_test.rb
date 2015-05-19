@@ -13,6 +13,7 @@ ActiveRecord::Base.establish_connection(
  database: 'dbtest.sqlite3'
 )
 
+ActiveRecord::Migration.verbose = false
 
 class EmployeeReview < Minitest::Test
   def setup
@@ -25,9 +26,6 @@ class EmployeeReview < Minitest::Test
     DepartmentMigration.migrate(:down)
   end
 
-  # def test_01_employee_class_exist
-  #   assert Employee
-  # end
 
   def test_02_create_employee
     Employee.create(name: "Jennifer", email: "hello@gmail.com", phone: 404803666, salary: 1000)
@@ -53,53 +51,35 @@ class EmployeeReview < Minitest::Test
     assert_equal "Human Resources", Department.create(name: "Human Resources").name
   end
 
-  # def test_08_add_employee_to_department
-  #   humanresources = Department.new("Human Resources")
-  #   assert humanresources.add_e(Employee.new(name: "George",salary: 25000))
-  # end
-  #
-  # def test_09_all_employees_salaries_in_department
-  #   finance = Department.new("Finance")
-  #   finance.add_e(Employee.new(name: "Steve", email: "hello@gmail.com", phone: 404803666, salary: 1000))
-  #   finance.add_e(Employee.new(name: "George", salary: 25000))
-  #   assert_equal 26000, finance.total_salaries
-  # end
-  #
-  # def test_10_add_employee_review
-  #   abbie = Employee.new(name: "Abbie", salary: 35000)
-  #   assert abbie.add_review("Great attitude! Needs to work on meeting deadlines.")
-  # end
-  #
-  # def test_11_employee_add_review
-  #   danny = Employee.new(name: "Danny", salary: 35000)
-  #   assert danny.add_review("Great Job!")
-  #   assert danny.add_review("Needs improvement in time management")
-  #   assert danny.add_review("Exceeds performance expectations")
-  # end
-  #
-  # # def test_12_employee_work_performance
-  # #   danny = Employee.new(name: "Danny", salary: 35000)
-  # #   assert_equal "Satisfactorily", danny.work_performance(true)
-  # #   alex = Employee.new(name: "Alex", salary: 12000)
-  # #   assert_equal "Unsatisfactorily", alex.work_performance(false)
-  # # end
-  #
-  # def test_13_add_raise_to_employee
-  #   steve = Employee.new(name: "Steve", email: "hello@gmail.com", phone: 404803666, salary: 1000)
-  #   assert steve.give_raise(1000)
-  # end
-  #
-  # # def test_14_add_department_raises_by_ratio
-  # #   finance = Department.new("Finance")
-  # #   jim = Employee.new(name: "Jim", email: "hello@gmail.com", phone: 404803666, salary: 1000)
-  # #   finance.add_e(jim)
-  # #   assert jim.work_performance(true)
-  # #   george = Employee.new(name: "George", salary: 25000)
-  # #   finance.add_e(george)
-  # #   assert george.work_performance(false)
-  # #   assert finance.give_raises(1000)
-  # # end
-  #
+  def test_08_add_employee_to_department
+    humanresources = Department.create(name: "Human Resources")
+    assert humanresources.add_e(Employee.create(name: "George",salary: 25000))
+  end
+
+  def test_09_all_employees_salaries_in_department
+    finance = Department.create(name: "Finance")
+    finance.add_e(Employee.create(name: "Steve", email: "hello@gmail.com", phone: 404803666, salary: 1000))
+    finance.add_e(Employee.create(name: "George", salary: 25000))
+    assert_equal 26000, finance.total_salaries
+  end
+
+  def test_10_add_employee_review
+    abbie = Employee.create(name: "Abbie", salary: 35000)
+    assert abbie.add_review("Great attitude! Needs to work on meeting deadlines.")
+  end
+
+  def test_11_employee_add_review
+    danny = Employee.create(name: "Danny", salary: 35000)
+    assert danny.add_review("Great Job!")
+    assert danny.add_review("Needs improvement in time management")
+    assert danny.add_review("Exceeds performance expectations")
+  end
+
+  def test_13_add_raise_to_employee
+    steve = Employee.create(name: "Steve", email: "hello@gmail.com", phone: 404803666, salary: 1000)
+    assert steve.give_raise(1000)
+  end
+
   # def test_15_add_raises_to_department
   #   assert finance = Department.new("Finance")
   #   assert jim = Employee.new(name: "Jim", email: "hello@gmail.com", phone: 404803666, salary: 1000)
