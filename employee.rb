@@ -1,13 +1,6 @@
 require './setup.rb'
 
 class Employee < ActiveRecord::Base
-  attr_reader :performance_rating, :bad_comments, :good_comments
-  def initialize (name:, email: "", phone: "", salary:)
-    @performance_rating = performance_rating
-    @bad_comments = bad_comments
-    @good_comments = good_comments
-  end
-
   def give_raise(dollar_amount)
     salary += dollar_amount
   end
