@@ -1,35 +1,30 @@
 require './setup.rb'
 
-class Employee < ActiveRecord :: Base
-  attr_reader :name, :email, :phone, :salary, :reviews, :performance_rating, :bad_comments, :good_comments
+class Employee < ActiveRecord::Base
+  attr_reader :performance_rating, :bad_comments, :good_comments
   def initialize (name:, email: "", phone: "", salary:)
-    @name = name
-    @email = email
-    @phone = phone
-    @salary = salary
-    @reviews = []
     @performance_rating = performance_rating
     @bad_comments = bad_comments
     @good_comments = good_comments
   end
 
   def give_raise(dollar_amount)
-    @salary += dollar_amount
+    salary += dollar_amount
   end
 
   def add_review(review)
-    @reviews << review.downcase
+    reviews << review.downcase
   end
 
   def evaluate_review
     bad_array = []
     good_array = []
-    @reviews.each do |r|
+    reviews.each do |r|
     bad_array << r.scan(/(improve|[\S]success|difficult|[\S]happy|negative|[\S]consistent|[\S]effectiv|less|not|lack|[\S]productiv|inadequate|interrupt|poor|[\S]proficient|unsatisf|\s\more\s\w)/).flatten
     end
     @bad_comments = bad_array.flatten.count
 
-    @reviews.each do |r|
+    reviews.each do |r|
     good_array << r.scan(/(good|[\s]success|pleasure|[\s]happy|great|[\s]consistent|[\s]effectiv|[\s]satisf|[\s]productiv|[\s]perfect|outstand|excellent|postive|[\s]proficient|strong)/).flatten
     end
     @good_comments = good_array.flatten.count
