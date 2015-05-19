@@ -4,6 +4,13 @@ require 'minitest/pride'
 require './employee.rb'
 require './department.rb'
 
+require 'active_record'
+
+ActiveRecord::Base.establish_connection(
+ adapter: 'sqlite3',
+ database: 'dbtest.sqlite3'
+)
+
 class EmployeeReview < Minitest::Test
   def test_01_employee_class_exist
     assert Employee
