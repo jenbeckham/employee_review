@@ -18,5 +18,8 @@ class Department < ActiveRecord::Base
     eligible_employees.map {|employee| employee.give_raise(amount.to_f/eligible_employees.count)}
   end
 
+  def total_employees
+    employees.count
+  end
 
 end
