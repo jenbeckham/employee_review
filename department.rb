@@ -3,7 +3,7 @@ require './setup.rb'
 class Department < ActiveRecord::Base
   has_many :employees
 
-  def add_e(employee)
+  def add_employee(employee)
     employees << employee
   end
 
@@ -20,6 +20,21 @@ class Department < ActiveRecord::Base
 
   def total_employees
     employees.count
+  end
+
+  def lowest_paid_employee
+    salaries = self.employees.map {|e| e.salary}
+    salaries.sort[0]
+
+    # employees.each do |e|
+    #   hash[e.salary => e.name]
+    # end
+    # p hash[salaries.sort[0]]
+  end
+
+  def sort_employee_names
+    names = employees.map {|e| e.name}
+    names.sort
   end
 
 end

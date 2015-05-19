@@ -53,13 +53,13 @@ class EmployeeReview < Minitest::Test
 
   def test_07_add_employee_to_department
     humanresources = Department.create(name: "Human Resources")
-    assert humanresources.add_e(Employee.create(name: "George",salary: 25000))
+    assert humanresources.add_employee(Employee.create(name: "George",salary: 25000))
   end
 
   def test_08_all_employees_salaries_in_department
     finance = Department.create(name: "Finance")
-    finance.add_e(Employee.create(name: "Steve", email: "hello@gmail.com", phone: 404803666, salary: 1000))
-    finance.add_e(Employee.create(name: "George", salary: 25000))
+    finance.add_employee(Employee.create(name: "Steve", email: "hello@gmail.com", phone: 404803666, salary: 1000))
+    finance.add_employee(Employee.create(name: "George", salary: 25000))
     assert_equal 26000, finance.total_salaries
   end
 
@@ -71,9 +71,9 @@ class EmployeeReview < Minitest::Test
   def test_10_add_raises_to_department
     assert finance = Department.create(name: "Finance")
     assert jim = Employee.create(name: "Jim", email: "hello@gmail.com", phone: 404803666, salary: 1000)
-    assert finance.add_e(jim)
+    assert finance.add_employee(jim)
     assert george = Employee.create(name: "George", salary: 25000)
-    assert finance.add_e(george)
+    assert finance.add_employee(george)
     assert finance.give_raises(5000) {|employee| employee.salary < 100000}
   end
 
@@ -84,8 +84,28 @@ class EmployeeReview < Minitest::Test
 
   def test_12_total_employees
     finance = Department.create(name: "Finance")
-    finance.add_e(Employee.create(name: "Steve", email: "hello@gmail.com", phone: 404803666, salary: 1000))
-    finance.add_e(Employee.create(name: "George", salary: 25000))
+    finance.add_employee(Employee.create(name: "Steve", email: "hello@gmail.com", phone: 404803666, salary: 1000))
+    finance.add_employee(Employee.create(name: "George", salary: 25000))
     assert_equal 2, finance.total_employees
+  end
+
+  def test_13_least_paid_employee
+    finance = Department.create(name: "Finance")
+    finance.add_employee(Employee.create(name: "Steve", email: "hello@gmail.com", phone: 404803666, salary: 1000))
+    finance.add_employee(Employee.create(name: "George", salary: 25000))
+
+    p finance.lowest_paid_employee
+
+  end
+
+  def test_14_sort_employee_names
+    finance = Department.create(name: "Finance")
+    finance.add_employee(Employee.create(name: "Steve", email: "hello@gmail.com", phone: 404803666, salary: 1000))
+    finance.add_employee(Employee.create(name: "George", salary: 25000))
+    finance.add_employee(Employee.create(name: "Jim", email: "hello@gmail.com", phone: 404803666, salary: 1000))
+    assert_equal ["George", "Jim", "Steve"], finance.sort_employee_names
+  end
+
+  def test_15_employee_salary_average
   end
 end
