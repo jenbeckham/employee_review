@@ -93,9 +93,7 @@ class EmployeeReview < Minitest::Test
     finance = Department.create(name: "Finance")
     finance.add_employee(Employee.create(name: "Steve", email: "hello@gmail.com", phone: 404803666, salary: 1000))
     finance.add_employee(Employee.create(name: "George", salary: 25000))
-
-    p finance.lowest_paid_employee
-
+    finance.lowest_paid_employee
   end
 
   def test_14_sort_employee_names
@@ -107,5 +105,10 @@ class EmployeeReview < Minitest::Test
   end
 
   def test_15_employee_salary_average
+    finance = Department.create(name: "Finance")
+    finance.add_employee(Employee.create(name: "Steve", email: "hello@gmail.com", phone: 404803666, salary: 1000))
+    finance.add_employee(Employee.create(name: "George", salary: 25000))
+    finance.add_employee(Employee.create(name: "Jim", email: "hello@gmail.com", phone: 404803666, salary: 1000))
+    assert_equal 9000, finance.employee_salary_average
   end
 end

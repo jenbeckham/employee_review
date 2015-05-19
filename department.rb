@@ -37,4 +37,8 @@ class Department < ActiveRecord::Base
     names.sort
   end
 
+  def employee_salary_average
+    self.total_salaries/employees.count
+  end
+
 end
