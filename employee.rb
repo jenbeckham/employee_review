@@ -7,7 +7,12 @@ class Employee < ActiveRecord::Base
     self.salary += dollar_amount
   end
 
-  def add_review(review)
-    review << review.downcase
+  def work_performance(review)
+    if review == true
+      "Satisfactorily"
+    else
+      "Unsatisfactorily"
+    end
   end
+
 end
