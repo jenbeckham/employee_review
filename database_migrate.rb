@@ -1,5 +1,5 @@
-require './employee.rb'
-require './department.rb'
+#require './employee.rb'
+require './department_migration.rb'
 require './employee_migration.rb'
 
 
