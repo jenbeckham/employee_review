@@ -1,4 +1,6 @@
-class Department
+require './setup.rb'
+
+class Department < ActiveRecord :: Base
   attr_reader :name, :all_employees
   def initialize(name)
     @name = name

@@ -1,4 +1,6 @@
-class Employee
+require './setup.rb'
+
+class Employee < ActiveRecord :: Base
   attr_reader :name, :email, :phone, :salary, :reviews, :performance_rating, :bad_comments, :good_comments
   def initialize (name:, email: "", phone: "", salary:)
     @name = name
