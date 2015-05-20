@@ -38,7 +38,9 @@ class Department < ActiveRecord::Base
   end
 
   def employee_salary_average
-    self.total_salaries/employees.count
+    average = self.total_salaries/employees.count
+    under_avg_salary = employees.select {|e| e.salary < average}
+    under_avg_salary.map {|n| n.name}
   end
 
 end
