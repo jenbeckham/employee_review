@@ -112,15 +112,16 @@ class EmployeeReview < Minitest::Test
     finance.add_employee(Employee.create(name: "Steve", email: "hello@gmail.com", phone: 404803666, salary: 1000))
     finance.add_employee(Employee.create(name: "George", salary: 25000))
     finance.add_employee(Employee.create(name: "Jim", email: "hello@gmail.com", phone: 404803666, salary: 1000))
-    assert_equal 9000, finance.employee_salary_average
+  finance.employee_salary_average
+    assert_equal ["Steve", "Jim"], finance.employee_salary_average
   end
 
-  def test_16_alpahbatize_employees
+  def test_16_alpahbetize_employees
     finance = Department.create(name: "Finance")
     finance.add_employee(Employee.create(name: "Steve", email: "hello@gmail.com", phone: 404803666, salary: 1000))
     finance.add_employee(Employee.create(name: "George", salary: 25000))
     finance.add_employee(Employee.create(name: "Jim", email: "hello@gmail.com", phone: 404803666, salary: 2000))
-    assert_equal "George", finance.alphabatize
+    assert_equal ["George", "Jim", "Steve"], finance.alphabetize
   end
 
   def test_16_palindrone

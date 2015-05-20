@@ -36,18 +36,24 @@ class Department < ActiveRecord::Base
   end
 
   def employee_salary_average
-    self.total_salaries/employees.count
+    average = self.total_salaries/employees.count
+
+
+    under_avg_salary = employees.select {|n| n.salary < average}
+
+   under_avg_salary.map {|n|n.name}
+
 
   end
 
-  def alphabatize
-    alphabatize = self.employees.map {|e| e.name}
-    sorted_names = alphabatize.sort {|e,f|e<=>f}
-    sorted_names[0]
+  def alphabetize
+    alphabetize = self.employees.map {|e| e.name}
+    sorted_names = alphabetize.sort {|e,f|e<=>f}
+    sorted_names
   end
 
   def a_method
-    names = employees.each {|e| e.name}
+    names = employees.map {|e| e.name}
   if  names == names.reverse
     return names
   else
