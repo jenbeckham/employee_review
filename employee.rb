@@ -1,6 +1,7 @@
 require './setup.rb'
 
 class Employee < ActiveRecord::Base
+
   belongs_to :departments
 
   def give_raise(dollar_amount)

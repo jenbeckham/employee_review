@@ -6,6 +6,7 @@ class EmployeeMigration<ActiveRecord::Migration
       t.string :name
       t.integer :department_id
       t.string :email
+
       t.string :phone
       t.integer :salary
       t.string :review

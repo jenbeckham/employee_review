@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-
+require 'byebug'
 require './employee.rb'
 require './department.rb'
 require './employee_migration.rb'
@@ -27,8 +27,10 @@ class EmployeeReview < Minitest::Test
   end
 
 
+
   def test_01_create_employee
     Employee.create(name: "Jennifer", email: "hello@gmail.com", phone: 404803666, salary: 1000)
+
   end
 
   def test_02_call_on_employee_name
@@ -93,7 +95,8 @@ class EmployeeReview < Minitest::Test
     finance = Department.create(name: "Finance")
     finance.add_employee(Employee.create(name: "Steve", email: "hello@gmail.com", phone: 404803666, salary: 1000))
     finance.add_employee(Employee.create(name: "George", salary: 25000))
-    finance.lowest_paid_employee
+    finance.add_employee(Employee.create(name: "Jim", email: "hello@gmail.com", phone: 404803666, salary: 2000))
+    assert_equal "Steve", finance.lowest_paid_employee
   end
 
   def test_14_sort_employee_names
@@ -109,6 +112,25 @@ class EmployeeReview < Minitest::Test
     finance.add_employee(Employee.create(name: "Steve", email: "hello@gmail.com", phone: 404803666, salary: 1000))
     finance.add_employee(Employee.create(name: "George", salary: 25000))
     finance.add_employee(Employee.create(name: "Jim", email: "hello@gmail.com", phone: 404803666, salary: 1000))
-    p finance.employee_salary_average
+    finance.employee_salary_average
+    assert_equal ["Steve", "Jim"], finance.employee_salary_average
   end
+
+  def test_16_alpahbetize_employees
+    finance = Department.create(name: "Finance")
+    finance.add_employee(Employee.create(name: "Steve", email: "hello@gmail.com", phone: 404803666, salary: 1000))
+    finance.add_employee(Employee.create(name: "George", salary: 25000))
+    finance.add_employee(Employee.create(name: "Jim", email: "hello@gmail.com", phone: 404803666, salary: 2000))
+    assert_equal ["George", "Jim", "Steve"], finance.alphabetize
+  end
+
+  def test_17_palindrone
+    finance = Department.create(name: "Finance")
+    finance.add_employee(Employee.create(name: "Steve", email: "hello@gmail.com", phone: 404803666, salary: 1000))
+    finance.add_employee(Employee.create(name: "hannah", salary: 25000))
+    finance.add_employee(Employee.create(name: "Jim", email: "hello@gmail.com", phone: 404803666, salary: 2000))
+    assert_equal "hannah", finance.a_method
+  end
+
+
 end

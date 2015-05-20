@@ -23,13 +23,11 @@ class Department < ActiveRecord::Base
   end
 
   def lowest_paid_employee
-    salaries = self.employees.map {|e| e.salary}
-    salaries.sort[0]
+    # salaries = self.employees.map {|e| e}
+    # #salaries = salaries.sort {|e,f|e <=> f}
+    # salaries
+    employees.order(:salary).first.name
 
-    # employees.each do |e|
-    #   hash[e.salary => e.name]
-    # end
-    # p hash[salaries.sort[0]]
   end
 
   def sort_employee_names
@@ -41,6 +39,21 @@ class Department < ActiveRecord::Base
     average = self.total_salaries/employees.count
     under_avg_salary = employees.select {|e| e.salary < average}
     under_avg_salary.map {|n| n.name}
+  end
+
+  def alphabetize
+    alphabetize = self.employees.map {|e| e.name}
+    sorted_names = alphabetize.sort {|e,f|e<=>f}
+    sorted_names
+  end
+
+  def a_method
+    names = employees.map {|e| e.name}
+    if  names == names.reverse
+      return names
+    else
+      return "sorry"
+    end
   end
 
 end

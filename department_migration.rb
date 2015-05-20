@@ -6,5 +6,6 @@ class DepartmentMigration<ActiveRecord::Migration
       t.string :name
       # t.integer :salaries
     end
+
   end
 end

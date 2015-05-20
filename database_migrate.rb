@@ -1,6 +1,8 @@
+
 # require './employee.rb'
 # require './department.rb'
 require './setup.rb'
+
 require './employee_migration.rb'
 require './department_migration.rb'
 
